@@ -10,7 +10,6 @@
 
 "use strict";
 (function() {
-  const IMG_URL = "images/";
   const COVER_URL = "covers/";
   const BOOK_LIST_URL = "/bestreads/books";
   const BOOK_DESC_URL = "/bestreads/description/";
@@ -46,16 +45,17 @@
    * from the API and displays them on the webpage.
    * For each book, add a click event listener that calls
    * the show detail function.
+   * @param {JSON object} bookList - Array that contains info about all books
    */
   function displayBooks(bookList) {
     showAllBookSection();
     let bookSection = id("all-books");
     for (let book of bookList["books"]) {
       let bookHolder = document.createElement("div");
-      bookHolder.id = book["book_id"];
+      bookHolder.id = book["bookId"];
       let coverImg = document.createElement("img");
-      coverImg.src = COVER_URL + book["book_id"] + ".jpg";
-      coverImg.alt = book["book_id"];
+      coverImg.src = COVER_URL + book["bookId"] + ".jpg";
+      coverImg.alt = book["bookId"];
       bookHolder.appendChild(coverImg);
       let bookTitle = document.createElement("p");
       bookTitle.textContent = book["title"];
@@ -82,13 +82,13 @@
   function showDetail() {
     show(id("single-book"));
     hide(id("all-books"));
-    let book_id = this.id;
+    let bookId = this.id;
     let cover = id("book-cover");
-    cover.src = COVER_URL + book_id + ".jpg";
-    cover.alt = book_id;
-    fetchBookInfo(book_id);
-    fetchBookDescription(book_id);
-    fetchBookReview(book_id);
+    cover.src = COVER_URL + bookId + ".jpg";
+    cover.alt = bookId;
+    fetchBookInfo(bookId);
+    fetchBookDescription(bookId);
+    fetchBookReview(bookId);
   }
 
   /**
@@ -96,9 +96,10 @@
    * method for displaying if the book title and author is
    * successfully fetched for the target book id.
    * Otherwise displays the error view.
+   * @param {string} bookId - String representation of the book id
    */
-  function fetchBookInfo(book_id) {
-    fetch(BOOK_INFO_URL + book_id)
+  function fetchBookInfo(bookId) {
+    fetch(BOOK_INFO_URL + bookId)
       .then(checkStatus)
       .then(resp => resp.json())
       .then(displayBookInfo)
@@ -110,9 +111,10 @@
    * method for displaying if the book description is
    * successfully fetched for the target book id.
    * Otherwise displays the error view.
+   * @param {string} bookId - String representation of the book id
    */
-  function fetchBookDescription(book_id) {
-    fetch(BOOK_DESC_URL + book_id)
+  function fetchBookDescription(bookId) {
+    fetch(BOOK_DESC_URL + bookId)
       .then(checkStatus)
       .then(resp => resp.text())
       .then(function(desc) {
@@ -126,9 +128,10 @@
    * method for displaying if the list of book reviews is
    * successfully fetched for the target book id.
    * Otherwise displays the error view.
+   * @param {string} bookId - String representation of the book id
    */
-  function fetchBookReview(book_id) {
-    fetch(BOOK_REVIEW_URL + book_id)
+  function fetchBookReview(bookId) {
+    fetch(BOOK_REVIEW_URL + bookId)
       .then(checkStatus)
       .then(resp => resp.json())
       .then(displayBookReview)
@@ -137,6 +140,7 @@
 
   /**
    * Alters the HTML element to display the book title and book author.
+   * @param {JSON object} bookInfo - JSON object that contains basic book info
    */
   function displayBookInfo(bookInfo) {
     id("book-title").textContent = bookInfo["title"];
@@ -147,6 +151,7 @@
    * Create HTML elements based on the book reviews received
    * from the API and displays them on the webpage.
    * For each book's average rating, it's always rounded to 1 decimal place
+   * @param {JSON object} bookReviews - Array of reviews of the target book.
    */
   function displayBookReview(bookReviews) {
     clearReviewSection();
@@ -188,7 +193,6 @@
     show(id("error-text"));
     id("home").disabled = true;
   }
-
 
   /* ------------------------------ Helper Functions  ------------------------------ */
 

@@ -24,8 +24,6 @@ const FILE_ERROR = 500;
 const PUBLIC_PORT = 8000;
 const FILE_ERROR_MESSAGE = "Something went on the server, try again later.";
 
-let highScore = 0;
-
 /*
  * Responds with text containing the description of the book
  * Outputs a 400 error if book with target book id is not found.
@@ -52,7 +50,6 @@ app.get("/bestreads/description/:book_id", async function(req, res) {
     }
   }
 });
-
 
 /*
  * Responds with a JSON file containing the title and author info of the book
