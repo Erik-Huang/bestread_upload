@@ -1,0 +1,21 @@
+{
+  "name": "hw4-bestreads-huangti",
+  "version": "1.0.0",
+  "description": "BestReads API for Homework 4",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "glob": "^7.1.6",
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.cs.washington.edu:cse154-19au-students/hw4-bestreads-huangti.git"
+  },
+  "author": "Erik Huang",
+  "license": "ISC"
+}
