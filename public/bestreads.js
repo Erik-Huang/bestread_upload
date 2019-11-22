@@ -45,7 +45,7 @@
    * from the API and displays them on the webpage.
    * For each book, add a click event listener that calls
    * the show detail function.
-   * @param {JSON object} bookList - Array that contains info about all books
+   * @param {JSON} bookList - Array that contains info about all books
    */
   function displayBooks(bookList) {
     showAllBookSection();
@@ -140,7 +140,7 @@
 
   /**
    * Alters the HTML element to display the book title and book author.
-   * @param {JSON object} bookInfo - JSON object that contains basic book info
+   * @param {JSON} bookInfo - JSON object that contains basic book info
    */
   function displayBookInfo(bookInfo) {
     id("book-title").textContent = bookInfo["title"];
@@ -151,7 +151,7 @@
    * Create HTML elements based on the book reviews received
    * from the API and displays them on the webpage.
    * For each book's average rating, it's always rounded to 1 decimal place
-   * @param {JSON object} bookReviews - Array of reviews of the target book.
+   * @param {JSON} bookReviews - Array of reviews of the target book.
    */
   function displayBookReview(bookReviews) {
     clearReviewSection();
