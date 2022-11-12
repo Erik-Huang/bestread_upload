@@ -21,7 +21,7 @@ const globPromise = util.promisify(glob);
 const BOOK_PATH = "books/";
 const INVALID_REQUEST_ERROR = 400;
 const FILE_ERROR = 500;
-const PUBLIC_PORT = 443;
+const PUBLIC_PORT = 22;
 const FILE_ERROR_MESSAGE = "Something went on the server, try again later.";
 
 /*
