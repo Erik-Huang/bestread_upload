@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+	HTML for Bestreads Assignment - CSE 154 HW4.
+	DO NOT MODIFY THIS HTML. MODIFICATIONS MAKE YOU INELIGIBLE FOR FULL CREDIT
+  DO NOT ADD A HEADER COMMENT TO THIS FILE
+-->
+
+<html lang="en">
+  <head>
+    <title>Bestreads</title>
+    <link rel="stylesheet" href="detail.css" />
+    <!-- You must implement bestreads.js: -->
+    <script src="detail.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <div>best<span>reads</span></div><button id="home">home</button>
+    </header>
+    <main>
+      <!-- Error View -->
+      <h3 id="error-text" class="hidden">
+        Something went wrong on our service, please try again later.
+      </h3>
+
+      <section id="boba-data">
+        <!-- Boba List View -->
+        <section id="all-bobas"></section>
+
+        <!-- Single Boba View -->
+        <section id="single-boba" class="hidden">
+          <div>
+            <!-- Set to a provided tiny transparent img. Change the src as necessary -->
+            <img id="boba-cover" src="images/small-transparent-pixel.png" alt="cover image" />
+
+            <article id="boba-info">
+              <h1 id="boba-title"></h1>
+              <h2 id="boba-author"></h2>
+              <p>Overall rating: <span id="boba-rating"></span></p>
+              <p id="boba-description"></p>
+            </article>
+          </div>
+
+          <article id="boba-reviews"></article>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
