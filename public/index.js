@@ -11,13 +11,13 @@
 "use strict";
 (function() {
   const COVER_URL = "covers/";
-  const BOOK_LIST_URL = "/bestreads/books";
-  const BOOK_DESC_URL = "/bestreads/description/";
-  const BOOK_INFO_URL = "/bestreads/info/";
-  const BOOK_REVIEW_URL = "/bestreads/reviews/";
-
   const API_URL = "https://i04cb20al3.execute-api.us-east-1.amazonaws.com/dev"
   const BOBA_LIST_URL = API_URL + "/boba/boba_list";
+  const BOBA_DESC_URL = "/bestreads/description/";
+  const BOBA_INFO_URL = "/bestreads/info/";
+  const BOBA_REVIEW_URL = "/bestreads/reviews/";
+
+
 
   window.addEventListener("load", init);
 
@@ -27,12 +27,12 @@
    */
   function init() {
     populateBobaList();
-    id("home").addEventListener("click", showAllBookSection);
+    id("home").addEventListener("click", showAllBobaSection);
   }
 
   /**
    * Fetch request to the BestReads API, proceed to the helper
-   * method for displaying if book list data is successfully fetched.
+   * method for displaying if boba list data is successfully fetched.
    * Otherwise displays the error view.
    */
   function populateBobaList() {
@@ -44,127 +44,127 @@
   }
 
   /**
-   * Create HTML elements based on the book list received
+   * Create HTML elements based on the boba list received
    * from the API and displays them on the webpage.
-   * For each book, add a click event listener that calls
+   * For each boba, add a click event listener that calls
    * the show detail function.
-   * @param {JSON} bobaList - Array that contains info about all books
+   * @param {JSON} bobaList - Array that contains info about all bobas
    */
   function displayBobas(bobaList) {
     console.log("In display");
-    showAllBookSection();
-    let bookSection = id("all-books");
+    showAllBobaSection();
+    let bobaSection = id("all-bobas");
     for (let boba of bobaList) {
       console.log(boba);
       let bobaHolder = document.createElement("div");
       bobaHolder.id = boba["boba_id"];
       /*
       let coverImg = document.createElement("img");
-      coverImg.src = COVER_URL + book["book_id"] + ".jpg";
-      coverImg.alt = boba["book_id"];
+      coverImg.src = COVER_URL + boba["boba_id"] + ".jpg";
+      coverImg.alt = boba["boba_id"];
       bobaHolder.appendChild(coverImg);
       */
       let bobaName = document.createElement("p");
       bobaName.textContent = boba["boba_id"];
       bobaHolder.appendChild(bobaName);
       bobaHolder.addEventListener("click", showDetail);
-      bookSection.appendChild(bobaHolder);
+      bobaSection.appendChild(bobaHolder);
     }
   }
 
   /**
-   * Toggles the view of the webpage from a single book view
-   * to the full book list.
+   * Toggles the view of the webpage from a single boba view
+   * to the full boba list.
    */
-  function showAllBookSection() {
-    hide(id("single-book"));
-    show(id("all-books"));
+  function showAllBobaSection() {
+    hide(id("single-boba"));
+    show(id("all-bobas"));
   }
 
   /**
-   * Toggles the view of the webpage from the full book list
-   * to a single book view and populate the information according
-   * to the book chosen.
+   * Toggles the view of the webpage from the full boba list
+   * to a single boba view and populate the information according
+   * to the boba chosen.
    */
   function showDetail() {
-    show(id("single-book"));
-    hide(id("all-books"));
-    let bookId = this.id;
-    let cover = id("book-cover");
-    cover.src = COVER_URL + bookId + ".jpg";
-    cover.alt = bookId;
-    fetchBookInfo(bookId);
-    fetchBookDescription(bookId);
-    fetchBookReview(bookId);
+    show(id("single-boba"));
+    hide(id("all-bobas"));
+    let bobaId = this.id;
+    let cover = id("boba-cover");
+    cover.src = COVER_URL + bobaId + ".jpg";
+    cover.alt = bobaId;
+    fetchBobaInfo(bobaId);
+    fetchBobaDescription(bobaId);
+    fetchBobaReview(bobaId);
   }
 
   /**
    * Fetch request to the BestReads API, proceed to the helper
-   * method for displaying if the book title and author is
-   * successfully fetched for the target book id.
+   * method for displaying if the boba title and author is
+   * successfully fetched for the target boba id.
    * Otherwise displays the error view.
-   * @param {string} bookId - String representation of the book id
+   * @param {string} bobaId - String representation of the boba id
    */
-  function fetchBookInfo(bookId) {
-    fetch(BOOK_INFO_URL + bookId)
+  function fetchBobaInfo(bobaId) {
+    fetch(BOBA_INFO_URL + bobaId)
       .then(checkStatus)
       .then(resp => resp.json())
-      .then(displayBookInfo)
+      .then(displayBobaInfo)
       .catch(displayErrorMessage);
   }
 
   /**
    * Fetch request to the BestReads API, proceed to the helper
-   * method for displaying if the book description is
-   * successfully fetched for the target book id.
+   * method for displaying if the boba description is
+   * successfully fetched for the target boba id.
    * Otherwise displays the error view.
-   * @param {string} bookId - String representation of the book id
+   * @param {string} bobaId - String representation of the boba id
    */
-  function fetchBookDescription(bookId) {
-    fetch(BOOK_DESC_URL + bookId)
+  function fetchBobaDescription(bobaId) {
+    fetch(BOBA_DESC_URL + bobaId)
       .then(checkStatus)
       .then(resp => resp.text())
       .then(function(desc) {
-        id("book-description").textContent = desc;
+        id("boba-description").textContent = desc;
       })
       .catch(displayErrorMessage);
   }
 
   /**
    * Fetch request to the BestReads API, proceed to the helper
-   * method for displaying if the list of book reviews is
-   * successfully fetched for the target book id.
+   * method for displaying if the list of boba reviews is
+   * successfully fetched for the target boba id.
    * Otherwise displays the error view.
-   * @param {string} bookId - String representation of the book id
+   * @param {string} bobaId - String representation of the boba id
    */
-  function fetchBookReview(bookId) {
-    fetch(BOOK_REVIEW_URL + bookId)
+  function fetchBobaReview(bobaId) {
+    fetch(BOBA_REVIEW_URL + bobaId)
       .then(checkStatus)
       .then(resp => resp.json())
-      .then(displayBookReview)
+      .then(displayBobaReview)
       .catch(displayErrorMessage);
   }
 
   /**
-   * Alters the HTML element to display the book title and book author.
-   * @param {JSON} bookInfo - JSON object that contains basic book info
+   * Alters the HTML element to display the boba title and boba author.
+   * @param {JSON} bobaInfo - JSON object that contains basic boba info
    */
-  function displayBookInfo(bookInfo) {
-    id("book-title").textContent = bookInfo["title"];
-    id("book-author").textContent = bookInfo["author"];
+  function displayBobaInfo(bobaInfo) {
+    id("boba-title").textContent = bobaInfo["title"];
+    id("boba-author").textContent = bobaInfo["author"];
   }
 
   /**
-   * Create HTML elements based on the book reviews received
+   * Create HTML elements based on the boba reviews received
    * from the API and displays them on the webpage.
-   * For each book's average rating, it's always rounded to 1 decimal place
-   * @param {JSON} bookReviews - Array of reviews of the target book.
+   * For each boba's average rating, it's always rounded to 1 decimal place
+   * @param {JSON} bobaReviews - Array of reviews of the target boba.
    */
-  function displayBookReview(bookReviews) {
+  function displayBobaReview(bobaReviews) {
     clearReviewSection();
     let ratingSum = 0;
-    let reviewSection = id("book-reviews");
-    for (let review of bookReviews) {
+    let reviewSection = id("boba-reviews");
+    for (let review of bobaReviews) {
       let name = document.createElement("h3");
       name.textContent = review["name"];
       let rating = document.createElement("h4");
@@ -176,15 +176,15 @@
       reviewSection.appendChild(rating);
       reviewSection.appendChild(text);
     }
-    id("book-rating").textContent = (ratingSum / bookReviews.length).toFixed(1);
+    id("boba-rating").textContent = (ratingSum / bobaReviews.length).toFixed(1);
   }
 
   /**
    * Helper method that clears all the HTML elements
-   * from the book review section.
+   * from the boba review section.
    */
   function clearReviewSection() {
-    let reviewSection = qsa("#book-reviews > *");
+    let reviewSection = qsa("#boba-reviews > *");
     for (let review of reviewSection) {
       review.parentNode.removeChild(review);
     }
@@ -195,8 +195,8 @@
    * displays the error view and disable the home button.
    */
   function displayErrorMessage() {
-    hide(id("single-book"));
-    hide(id("all-books"));
+    hide(id("single-boba"));
+    hide(id("all-bobas"));
     show(id("error-text"));
     id("home").disabled = true;
   }

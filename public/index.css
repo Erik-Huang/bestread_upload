@@ -18,7 +18,7 @@ body > main {
 }
 
 header {
-  background-image: url("images/books.jpg");
+  /* background-image: url("images/bobas.jpg"); */
   box-shadow: 0 5px 5px lightgray;
   height: 104px;
   width: 100%;
@@ -57,28 +57,28 @@ button, .selectable {
   cursor: default;
 }
 
-#all-books, #single-book, #single-book > div {
+#all-bobas, #single-boba, #single-boba > div {
   display: flex;
 }
 
-#all-books {
+#all-bobas {
   justify-content: space-around;
   align-items: flex-start;
   flex-wrap: wrap;
 }
 
-#single-book {
+#single-boba {
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-#single-book > div {
+#single-boba > div {
   align-items: flex-start;
   justify-content: center;
 }
 
-#all-books div {
+#all-bobas div {
   background-color: #f4f1eb;
   border-radius: 5px;
   box-shadow: 0 0 15px gray;
@@ -88,18 +88,18 @@ button, .selectable {
   height: 330px;
 }
 
-/* book cover images */
-#all-books img {
+/* boba cover images */
+#all-bobas img {
   height: 220px;
   width: 150px;
 }
 
-#book-info {
+#boba-info {
   margin-left: 5%;
   margin-right: 5%;
 }
 
-#book-info > h1, #book-info > h2 {
+#boba-info > h1, #boba-info > h2 {
   font-size: 16pt;
 }
 
@@ -112,30 +112,30 @@ h3, h4 {
   margin-bottom: 0.5em;
 }
 
-#book-reviews {
+#boba-reviews {
   margin: auto;
   padding-top: 0.5em;
   width: 70%;
 }
 
-#book-reviews p {
+#boba-reviews p {
   margin-top: 0px;
   padding-bottom: 0.5em;
 }
 
-#single-book img, #book-info, #error-text {
+#single-boba img, #boba-info, #error-text {
   margin-top: 50px;
 }
 
-#all-books div, #book-reviews, #error-text {
+#all-bobas div, #boba-reviews, #error-text {
   text-align: center;
 }
 
-#single-book img {
+#single-boba img {
   width: 200px;
   margin-left: 15%;
 }
 
-.hidden, #all-books.hidden, #single-book.hidden {
+.hidden, #all-bobas.hidden, #single-boba.hidden {
   display: none;
 }
