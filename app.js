@@ -21,7 +21,7 @@ const globPromise = util.promisify(glob);
 const BOOK_PATH = "books/";
 const INVALID_REQUEST_ERROR = 400;
 const FILE_ERROR = 500;
-const PUBLIC_PORT = 8000;
+const PUBLIC_PORT = 80;
 const FILE_ERROR_MESSAGE = "Something went on the server, try again later.";
 
 /*
@@ -30,26 +30,22 @@ const FILE_ERROR_MESSAGE = "Something went on the server, try again later.";
  * Outputs a 500 error if something goes wrong when processing files.
  */
 app.get("/bestreads/description/:book_id", async function(req, res) {
-  res.set("Content-Type", "text/plain");
-  let foundPath = true;
   let bookId = req.params["book_id"];
-  let pathResult;
+  let path = BOOK_PATH + bookId + "/description.txt";
   try {
-    let pathPattern = BOOK_PATH + bookId + "/description.txt";
-    pathResult = await globPromise(pathPattern);
+    let result = await getDescriptions(path);
+    res.set("Content-Type", "text/plain");
+    res.send(result);
   } catch (err) {
-    foundPath = false;
-    res.status(FILE_ERROR).send(FILE_ERROR_MESSAGE);
-  }
-  if (foundPath) {
-    try {
-      let discription = await fs.readFile(pathResult[0], "utf8");
-      res.send(discription);
-    } catch (err) {
-      res.status(INVALID_REQUEST_ERROR).send("No results found for " + bookId + ".");
-    }
+    res.set("Content-Type", "text/plain");
+    res.status(INVALID_REQUEST_ERROR).send("No results found for " + bookId + ".");
   }
 });
+
+async function getDescriptions(path) {
+  let discription = await fs.readFile(path, "utf8");
+  return discription;
+}
 
 /*
  * Responds with a JSON file containing the title and author info of the book
@@ -127,6 +123,7 @@ app.get("/bestreads/books", async function(req, res) {
   let bookList = [];
   try {
     let pathResult = await globPromise(BOOK_PATH + "*");
+    console.log(await globPromise(BOOK_PATH + "2v*"));
     for (let path of pathResult) {
       let title = await fs.readFile(path + "/info.txt", "utf8");
       title = title.split(/\r?\n/)[0];

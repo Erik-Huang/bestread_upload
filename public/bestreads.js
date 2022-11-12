@@ -52,10 +52,10 @@
     let bookSection = id("all-books");
     for (let book of bookList["books"]) {
       let bookHolder = document.createElement("div");
-      bookHolder.id = book["bookId"];
+      bookHolder.id = book["book_id"];
       let coverImg = document.createElement("img");
-      coverImg.src = COVER_URL + book["bookId"] + ".jpg";
-      coverImg.alt = book["bookId"];
+      coverImg.src = COVER_URL + book["book_id"] + ".jpg";
+      coverImg.alt = book["book_id"];
       bookHolder.appendChild(coverImg);
       let bookTitle = document.createElement("p");
       bookTitle.textContent = book["title"];
