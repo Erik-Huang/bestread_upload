@@ -16,6 +16,9 @@
   const BOOK_INFO_URL = "/bestreads/info/";
   const BOOK_REVIEW_URL = "/bestreads/reviews/";
 
+  const API_URL = "https://i04cb20al3.execute-api.us-east-1.amazonaws.com/dev"
+  const BOBA_LIST_URL = API_URL + "/boba/boba_list";
+
   window.addEventListener("load", init);
 
   /**
@@ -23,7 +26,7 @@
    * Initialize the start battle button.
    */
   function init() {
-    populateBookList();
+    populateBobaList();
     id("home").addEventListener("click", showAllBookSection);
   }
 
@@ -32,11 +35,11 @@
    * method for displaying if book list data is successfully fetched.
    * Otherwise displays the error view.
    */
-  function populateBookList() {
-    fetch(BOOK_LIST_URL)
+  function populateBobaList() {
+    fetch(BOBA_LIST_URL)
       .then(checkStatus)
       .then(resp => resp.json())
-      .then(displayBooks)
+      .then(displayBobas)
       .catch(displayErrorMessage);
   }
 
@@ -45,23 +48,27 @@
    * from the API and displays them on the webpage.
    * For each book, add a click event listener that calls
    * the show detail function.
-   * @param {JSON} bookList - Array that contains info about all books
+   * @param {JSON} bobaList - Array that contains info about all books
    */
-  function displayBooks(bookList) {
+  function displayBobas(bobaList) {
+    console.log("In display");
     showAllBookSection();
     let bookSection = id("all-books");
-    for (let book of bookList["books"]) {
-      let bookHolder = document.createElement("div");
-      bookHolder.id = book["book_id"];
+    for (let boba of bobaList) {
+      console.log(boba);
+      let bobaHolder = document.createElement("div");
+      bobaHolder.id = boba["boba_id"];
+      /*
       let coverImg = document.createElement("img");
       coverImg.src = COVER_URL + book["book_id"] + ".jpg";
-      coverImg.alt = book["book_id"];
-      bookHolder.appendChild(coverImg);
-      let bookTitle = document.createElement("p");
-      bookTitle.textContent = book["title"];
-      bookHolder.appendChild(bookTitle);
-      bookHolder.addEventListener("click", showDetail);
-      bookSection.appendChild(bookHolder);
+      coverImg.alt = boba["book_id"];
+      bobaHolder.appendChild(coverImg);
+      */
+      let bobaName = document.createElement("p");
+      bobaName.textContent = boba["boba_id"];
+      bobaHolder.appendChild(bobaName);
+      bobaHolder.addEventListener("click", showDetail);
+      bookSection.appendChild(bobaHolder);
     }
   }
 
